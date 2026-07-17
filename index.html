@@ -8,343 +8,303 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-main: #0f172a; /* Deep blue background for the entire page */
-            --text-dark: #f8fafc; /* Light text for deep background */
-            --text-muted: #cbd5e1;
+            --bg-main: #0f172a; /* Deep elegant slate blue */
+            --bg-card: #1e293b; /* Premium dark card background */
+            --text-light: #ffffff;
+            --text-muted: #94a3b8;
+            --accent-blue: #3b82f6;
             
-            /* Dynamic Button Colors */
-            --btn-summary: #2563eb;
+            /* Dynamic Button Accent Colors */
+            --btn-summary: #3b82f6;
             --btn-experience: #0d9488;
-            --btn-education: #7c3aed;
-            --btn-skills: #db2777;
-            --btn-patents: #d97706;
-            --btn-research: #dc2626;
-            --btn-books: #059669;
-            --btn-gallery: #4f46e5;
-            --btn-profiles: #0284c7; 
-            --btn-contact: #16a34a;  
+            --btn-education: #8b5cf6;
+            --btn-skills: #ec4899;
+            --btn-patents: #f59e0b;
+            --btn-research: #ef4444;
+            --btn-books: #10b981;
+            --btn-gallery: #6366f1;
+            --btn-profiles: #06b6d4; 
+            --btn-contact: #22c55e;  
         }
 
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             background-color: var(--bg-main);
-            color: var(--text-dark);
+            color: var(--text-light);
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            line-height: 1.5;
+            overflow-x: hidden;
         }
 
-        /* ----------------------------------------------------------- */
-        /* --- Super-Wide Banner Background (Fully Cleared) --- */
-        /* ----------------------------------------------------------- */
-        .hero-banner-outer {
+        /* 1. Slim Cinematic Banner (Takes ~1/3 of view height) */
+        .panoramic-banner {
             width: 100%;
-            height: auto; /* Allow height to adjust */
-            padding: 0;
-            margin: 0;
-            background: linear-gradient(135deg, #0a0e16, #162a3f); /* Fallback */
-            border-bottom: 5px solid #2563eb;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* The actual panoramic image background, strictly controlled */
-        .hero-banner-inner {
-            background-image: url('banner.jpg'); /* Your spectacular image! */
-            background-size: cover; /* Image covers entire area without distorting */
-            background-position: center top; /* Focuses on top-center of the panorama */
+            height: 280px;
+            background-image: url('banner.jpg');
+            background-size: cover;
+            background-position: center 25%;
             background-repeat: no-repeat;
-            width: 100%;
-            min-height: 400px; /* Minimum height for good visibility */
+            border-bottom: 4px solid var(--accent-blue);
             position: relative;
-            z-index: 1; /* Lowest z-index for background */
-            display: flex; /* Helps vertically center content, but we mostly clear it */
-            align-items: center; 
         }
 
-        /* Essential overlay to ensure text is always readable over ANY image */
-        .hero-banner-inner::after {
+        /* Subtle dark gradient overlay to blend smoothly with the body */
+        .panoramic-banner::after {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.3); /* Subtle dark overlay for contrast */
-            pointer-events: none;
-            z-index: 2; /* Layer above image */
+            bottom: 0; left: 0; width: 100%; height: 40%;
+            background: linear-gradient(to top, rgba(15,23,42,0.8), rgba(15,23,42,0));
         }
 
-        /* Center content block on the banner, mainly for vertical spacing */
-        .hero-content {
-            max-width: 1200px;
+        /* Main Structured Layout Container */
+        .page-container {
+            max-width: 1300px;
             margin: 0 auto;
+            padding: 0 30px;
             position: relative;
-            z-index: 3; /* Content z-index, must be above image/overlay */
-            color: #ffffff;
-            padding: 70px 20px;
         }
 
-        /* Header Text within the Banner (Simplified to clear space) */
-        .hero-text h1 {
-            font-size: 3.2rem;
-            margin: 0 0 10px 0;
-            font-weight: 800;
-            letter-spacing: -1px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Stronger shadow for readability */
-            background: linear-gradient(to right, #ffffff, #93c5fd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        /* 2. Unified Profile & Bio Header Block */
+        .bio-header-block {
+            display: flex;
+            align-items: flex-start;
+            gap: 35px;
+            margin-bottom: 40px;
+            position: relative;
         }
 
-        /* Subtitle / Department within the Banner */
-        .hero-text .degree {
-            font-size: 1.8rem;
-            color: #3b82f6;
-            font-weight: 600;
-            margin-bottom: 0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-        }
-
-        /* ----------------------------------------------------------- */
-        /* --- Integrated Side-Panel (Profile + Info + Grid) --- */
-        /* ----------------------------------------------------------- */
-        
-        .main-container-integrated {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 50px 20px;
-            display: grid;
-            grid-template-columns: 280px 1fr; /* Fixed side panel width, remaining for content */
-            gap: 40px;
-            align-items: start; /* Side panel stays at the top */
-        }
-
-        /* Side Panel Styling */
-        .info-side-panel {
-            background-color: #1e293b;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            border: 1px solid #334155;
-            position: sticky; /* Side panel will stick as user scrolls */
-            top: 20px; /* Sticking point */
-        }
-
-        /* Profile image - No longer in the banner! */
-        .side-profile-frame {
-            width: 100%;
-            height: 280px; /* Adjusted to panel width, maintaining ratio */
+        /* Elevated Profile Frame overlapping the banner smoothly */
+        .profile-frame-left {
+            flex: 0 0 200px;
+            height: 260px;
             border-radius: 16px;
             overflow: hidden;
-            border: 4px solid #ffffff;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            background: #334155;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 25px;
+            border: 4px solid var(--bg-main);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            background: #233149;
+            margin-top: -100px; /* Nudges the profile picture up into the banner */
+            z-index: 10;
+            transition: transform 0.3s ease;
         }
 
-        .side-profile-frame img {
+        .profile-frame-left img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        /* Dr. Islam's full list of titles and qualifications, presented cleanly */
-        .side-tags-list {
-            margin: 0;
-            padding: 0;
-            list-style: none;
+        /* Clear and Bold Text Info Area */
+        .bio-text-right {
+            flex: 1;
+            padding-top: 15px;
+        }
+
+        .bio-text-right h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin: 0 0 5px 0;
+            letter-spacing: -0.5px;
+            color: #ffffff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .bio-text-right .academic-degree {
+            font-size: 1.5rem;
+            color: var(--accent-blue);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .bio-text-right .expert-tags {
             font-size: 1rem;
             color: var(--text-muted);
-            text-align: left;
+            line-height: 1.6;
+            text-align: justify;
+            border-top: 1px solid #1e293b;
+            padding-top: 12px;
         }
 
-        .side-tags-list li {
-            position: relative;
-            padding-left: 20px;
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
-
-        .side-tags-list li::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: #3b82f6;
-            font-weight: bold;
-        }
-
-        /* Grid section containing the actual navigation buttons */
-        .grid-section {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
+        /* 3. Perfect 4-4-2 Navigation Grid Layout */
+        .navigation-section {
+            margin-top: 20px;
         }
 
         .section-headline {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            color: var(--text-dark);
-            border-left: 5px solid #2563eb;
-            padding-left: 15px;
-            margin-bottom: 10px;
+            color: #ffffff;
+            border-left: 4px solid var(--accent-blue);
+            padding-left: 12px;
+            margin-bottom: 25px;
+            letter-spacing: 0.5px;
         }
 
-        .buttons-grid {
+        .buttons-grid-4-4-2 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(4, 1fr); /* 4 Columns standard */
+            gap: 18px;
         }
 
-        /* ----------------------------------------------------------- */
-        /* --- Academic Button & Footer Styles --- */
-        /* ----------------------------------------------------------- */
+        /* Command the last 2 items to center themselves on the 3rd row */
+        .buttons-grid-4-4-2 > button:nth-last-child(2) {
+            grid-column-start: 2;
+        }
 
+        /* Academic Interactive Button */
         .academic-btn {
-            background-color: #ffffff; /* Contrast against the page background */
-            border: 2px solid #e2e8f0;
+            background-color: var(--bg-card);
+            border: 1px solid #2e3e56;
             border-radius: 12px;
-            padding: 20px;
+            padding: 16px 20px;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 16px;
             cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: left;
-            position: relative;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
         .btn-icon {
-            width: 50px; height: 50px;
+            width: 44px;
+            height: 44px;
             border-radius: 10px;
-            background-color: #f1f5f9;
+            background-color: rgba(255,255,255,0.03);
             color: var(--btn-color);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
         }
 
-        .btn-text h3 { margin: 0; font-size: 1.2rem; font-weight: 700; color: #0f172a; transition: color 0.25s ease; }
-        .btn-text span { font-size: 0.85rem; color: #64748b; display: block; margin-top: 2px; }
+        .btn-text h3 {
+            margin: 0;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #ffffff;
+            transition: color 0.2s ease;
+        }
 
+        .btn-text span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: block;
+            margin-top: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Interactive Hover Animations */
         .academic-btn:hover {
             border-color: var(--btn-color);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            background-color: #24334d;
         }
-        .academic-btn:hover .btn-icon { background-color: var(--btn-color); color: #ffffff; }
-        .academic-btn:hover .btn-text h3 { color: var(--btn-color); }
 
+        .academic-btn:hover .btn-icon {
+            background-color: var(--btn-color);
+            color: #ffffff;
+        }
+
+        .academic-btn:hover .btn-text h3 {
+            color: var(--btn-color);
+        }
+
+        /* Footer styling */
         .footer {
             text-align: center;
-            padding: 40px;
+            padding: 30px;
             color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-top: 60px;
+            font-size: 0.9rem;
+            margin-top: 50px;
             border-top: 1px solid #1e293b;
-            background-color: #0f172a;
         }
 
-        /* ----------------------------------------------------------- */
-        /* --- Responsive Adjustments --- */
-        /* ----------------------------------------------------------- */
-
-        @media (max-width: 992px) {
-            .main-container-integrated {
-                grid-template-columns: 1fr; /* Stack panel and grid on small screens */
-                gap: 50px;
-            }
-            .info-side-panel {
-                position: static; /* Side panel no longer sticks on mobile */
-                width: auto;
-            }
-            .hero-text h1 { font-size: 2.8rem; }
+        /* Responsive Layout for Tablets/Mobiles */
+        @media (max-width: 1024px) {
+            .buttons-grid-4-4-2 { grid-template-columns: repeat(2, 1fr); }
+            .buttons-grid-4-4-2 > button:nth-last-child(2) { grid-column-start: auto; }
+            .bio-header-block { flex-direction: column; align-items: center; text-align: center; }
+            .profile-frame-left { margin-top: -60px; }
+            .bio-text-right .expert-tags { text-align: center; }
+        }
+        @media (max-width: 640px) {
+            .buttons-grid-4-4-2 { grid-template-columns: 1fr; }
+            .bio-text-right h1 { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
-<!-- 1. The Panoramic Banner Section (fully cleared for the Spectacular Image) -->
-<header class="hero-banner-outer">
-    <div class="hero-banner-inner">
-        <div class="hero-content">
-            <div class="hero-text">
-                <h1>Dr. Islam G. Alhindawy</h1>
-                <div class="degree">Ph.D. in Materials Chemistry</div>
-            </div>
-        </div>
-    </div>
-</header>
+<!-- 1. The Shorter Cinematic Background Banner -->
+<header class="panoramic-banner"></header>
 
-<!-- 2. Integrated Content Container (Side Panel + Navigation Grid) -->
-<main class="main-container-integrated">
-    
-    <!-- A. Professional Side Panel - Replaces Banner Info -->
-    <aside class="info-side-panel">
+<!-- Main Page Wrapper -->
+<div class="page-container">
+
+    <!-- 2. Profile Details & Credentials Block (Perfectly Visible & Clear) -->
+    <section class="bio-header-block">
         
-        <!-- Profile image moves here for clarity and visibility -->
-        <div class="side-profile-frame">
+        <!-- Profile Picture on the Left (Nudged Up) -->
+        <div class="profile-frame-left">
             <img src="3. 5 xx  4.JPG" alt="Dr. Islam G. Alhindawy">
         </div>
-        
-        <!-- Dr. Islam's full list of titles and qualifications -->
-        <ul class="side-tags-list">
-            <li>Materials Scientist & Chemist</li>
-            <li>Nanotechnology & Renewable Energy Expert</li>
-            <li>Mining & Mineral Processing Projects Leader</li>
-            <li>Water Treatment & Environmental Remediation</li>
-            <li>Academic–Industry Collaborator</li>
-            <li>Principal & Research Scientist</li>
-            <li>Operations Manager</li>
-            <li>Industrial Chemist</li>
-            <li>Lecturer</li>
-        }
-        </ul>
-    </aside>
 
-    <!-- B. Main Grid Section for Navigation -->
-    <section class="grid-section">
+        <!-- Credentials on the Right -->
+        <div class="bio-text-right">
+            <h1>Dr. Islam G. Alhindawy</h1>
+            <div class="academic-degree">Ph.D. in Materials Chemistry</div>
+            <div class="expert-tags">
+                Materials Scientist & Chemist | Nanotechnology & Renewable Energy Expert | Mining & Mineral Processing Projects Leader | Water Treatment & Environmental Remediation | Academic–Industry Collaborator | Principal & Research Scientist | Operations Manager | Industrial Chemist | Lecturer
+            </div>
+        </div>
+
+    </section>
+
+    <!-- 3. Navigation Grid Optimized as 4-4-2 to fit one screen -->
+    <main class="navigation-section">
         <div class="section-headline">Navigation Menu & Sections</div>
         
-        <div class="buttons-grid">
+        <div class="buttons-grid-4-4-2">
             
-            <!-- 1. Professional Summary -->
+            <!-- Row 1 -->
             <button class="academic-btn" style="--btn-color: var(--btn-summary);" onclick="alert('Summary section triggered')">
                 <div class="btn-icon"><i class="fa-solid fa-address-card"></i></div>
                 <div class="btn-text">
                     <h3>Professional Summary</h3>
-                    <span>Vision, mission & overview</span>
+                    <span>Vision & overview</span>
                 </div>
             </button>
 
-            <!-- 2. Professional Experience -->
             <button class="academic-btn" style="--btn-color: var(--btn-experience);" onclick="alert('Experience section triggered')">
                 <div class="btn-icon"><i class="fa-solid fa-briefcase"></i></div>
                 <div class="btn-text">
                     <h3>Professional Experience</h3>
-                    <span>Chronology & projects leader</span>
+                    <span>Chronology & leadership</span>
                 </div>
             </button>
 
-            <!-- 3. Education & Fellowships -->
             <button class="academic-btn" style="--btn-color: var(--btn-education);" onclick="alert('Education section triggered')">
                 <div class="btn-icon"><i class="fa-solid fa-graduation-cap"></i></div>
                 <div class="btn-text">
                     <h3>Education & Fellowships</h3>
-                    <span>Academic degrees & training</span>
+                    <span>Degrees & training</span>
                 </div>
             </button>
 
-            <!-- 4. Technical Skills -->
             <button class="academic-btn" style="--btn-color: var(--btn-skills);" onclick="alert('Skills section triggered')">
                 <div class="btn-icon"><i class="fa-solid fa-flask-vial"></i></div>
                 <div class="btn-text">
                     <h3>Technical & Lab Skills</h3>
-                    <span>Core scientific expertise</span>
+                    <span>Scientific expertise</span>
                 </div>
             </button>
 
-            <!-- 5. Patents -->
+            <!-- Row 2 -->
             <button class="academic-btn" style="--btn-color: var(--btn-patents);" onclick="alert('Patents section triggered')">
                 <div class="btn-icon"><i class="fa-solid fa-certificate"></i></div>
                 <div class="btn-text">
@@ -353,59 +313,56 @@
                 </div>
             </button>
 
-            <!-- 6. Research Publications -->
             <button class="academic-btn" style="--btn-color: var(--btn-research);" onclick="alert('Publications section triggered')">
                 <div class="btn-icon"><i class="fa-solid fa-newspaper"></i></div>
                 <div class="btn-text">
                     <h3>Research Publications</h3>
-                    <span>International journal papers</span>
+                    <span>International journals</span>
                 </div>
             </button>
 
-            <!-- 7. International Books -->
             <button class="academic-btn" style="--btn-color: var(--btn-books);" onclick="alert('Books section triggered')">
                 <div class="btn-icon"><i class="fa-solid fa-book-open"></i></div>
                 <div class="btn-text">
                     <h3>International Books</h3>
-                    <span>Published textbooks & curricula</span>
+                    <span>Published textbooks</span>
                 </div>
             </button>
 
-            <!-- 8. Gallery -->
             <button class="academic-btn" style="--btn-color: var(--btn-gallery);" onclick="alert('Gallery section triggered')">
                 <div class="btn-icon"><i class="fa-solid fa-images"></i></div>
                 <div class="btn-text">
                     <h3>Field & Lab Gallery</h3>
-                    <span>Visuals from desert sites & labs</span>
+                    <span>Visuals & desert sites</span>
                 </div>
             </button>
 
-            <!-- 9. Academic Profiles -->
+            <!-- Row 3 (Centered Automatically) -->
             <button class="academic-btn" style="--btn-color: var(--btn-profiles);" onclick="alert('Academic profiles triggered')">
                 <div class="btn-icon"><i class="fa-solid fa-graduation-cap"></i></div>
                 <div class="btn-text">
-                    <h3>Academic & Research Profiles</h3>
-                    <span>LinkedIn, Scholar, ResearchGate</span>
+                    <h3>Research Profiles</h3>
+                    <span>Scholar, ResearchGate</span>
                 </div>
             </button>
 
-            <!-- 10. Contact Info -->
             <button class="academic-btn" style="--btn-color: var(--btn-contact);" onclick="alert('Contact section triggered')">
                 <div class="btn-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
                 <div class="btn-text">
                     <h3>Direct Contact Info</h3>
-                    <span>Email, phone & communication</span>
+                    <span>Email & communication</span>
                 </div>
             </button>
 
         </div>
-    </section>
-</main>
+    </main>
 
-<!-- Footer Section -->
-<footer class="footer">
-    &copy; 2026 Dr. Islam G. Alhindawy. All Rights Reserved. Managed under formal academic and scientific standards.
-</footer>
+    <!-- Footer -->
+    <footer class="footer">
+        &copy; 2026 Dr. Islam G. Alhindawy. All Rights Reserved. Managed under formal academic and scientific standards.
+    </footer>
+
+</div>
 
 </body>
 </html>
