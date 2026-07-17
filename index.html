@@ -1,368 +1,54 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dr. Islam G. Alhindawy</title>
-    <!-- FontAwesome for Academic Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --bg-main: #0f172a; /* Deep elegant slate blue */
-            --bg-card: #1e293b; /* Premium dark card background */
-            --text-light: #ffffff;
-            --text-muted: #94a3b8;
-            --accent-blue: #3b82f6;
-            
-            /* Dynamic Button Accent Colors */
-            --btn-summary: #3b82f6;
-            --btn-experience: #0d9488;
-            --btn-education: #8b5cf6;
-            --btn-skills: #ec4899;
-            --btn-patents: #f59e0b;
-            --btn-research: #ef4444;
-            --btn-books: #10b981;
-            --btn-gallery: #6366f1;
-            --btn-profiles: #06b6d4; 
-            --btn-contact: #22c55e;  
-        }
+        body, html { margin: 0; padding: 0; height: 100%; background: #0f172a; font-family: sans-serif; overflow: hidden; }
+        .page-wrapper { display: flex; flex-direction: column; height: 100vh; padding: 5px; box-sizing: border-box; }
+        
+        /* Banner - Full View */
+        .banner { height: 25%; width: 100%; background-image: url('banner.jpg'); background-size: contain; background-position: center; background-repeat: no-repeat; }
+        
+        /* Profile & Header */
+        .header-section { display: flex; align-items: center; gap: 15px; height: 25%; padding: 0 10px; }
+        .profile-img { width: 120px; height: 120px; border-radius: 10px; border: 2px solid white; object-fit: cover; }
+        .bio-text { color: white; }
+        .bio-text h1 { margin: 0; font-size: 1.5rem; }
+        .bio-text p { margin: 5px 0; font-size: 0.9rem; color: #94a3b8; }
 
-        body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-light);
-            margin: 0;
-            padding: 0;
-            line-height: 1.5;
-            overflow-x: hidden;
-        }
-
-        /* 1. Slim Cinematic Banner (Takes ~1/3 of view height) */
-        .panoramic-banner {
-            width: 100%;
-            height: 280px;
-            background-image: url('banner.jpg');
-            background-size: cover;
-            background-position: center 25%;
-            background-repeat: no-repeat;
-            border-bottom: 4px solid var(--accent-blue);
-            position: relative;
-        }
-
-        /* Subtle dark gradient overlay to blend smoothly with the body */
-        .panoramic-banner::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 40%;
-            background: linear-gradient(to top, rgba(15,23,42,0.8), rgba(15,23,42,0));
-        }
-
-        /* Main Structured Layout Container */
-        .page-container {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 0 30px;
-            position: relative;
-        }
-
-        /* 2. Unified Profile & Bio Header Block */
-        .bio-header-block {
-            display: flex;
-            align-items: flex-start;
-            gap: 35px;
-            margin-bottom: 40px;
-            position: relative;
-        }
-
-        /* Elevated Profile Frame overlapping the banner smoothly */
-        .profile-frame-left {
-            flex: 0 0 200px;
-            height: 260px;
-            border-radius: 16px;
-            overflow: hidden;
-            border: 4px solid var(--bg-main);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
-            background: #233149;
-            margin-top: -100px; /* Nudges the profile picture up into the banner */
-            z-index: 10;
-            transition: transform 0.3s ease;
-        }
-
-        .profile-frame-left img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Clear and Bold Text Info Area */
-        .bio-text-right {
-            flex: 1;
-            padding-top: 15px;
-        }
-
-        .bio-text-right h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin: 0 0 5px 0;
-            letter-spacing: -0.5px;
-            color: #ffffff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-
-        .bio-text-right .academic-degree {
-            font-size: 1.5rem;
-            color: var(--accent-blue);
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .bio-text-right .expert-tags {
-            font-size: 1rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            text-align: justify;
-            border-top: 1px solid #1e293b;
-            padding-top: 12px;
-        }
-
-        /* 3. Perfect 4-4-2 Navigation Grid Layout */
-        .navigation-section {
-            margin-top: 20px;
-        }
-
-        .section-headline {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #ffffff;
-            border-left: 4px solid var(--accent-blue);
-            padding-left: 12px;
-            margin-bottom: 25px;
-            letter-spacing: 0.5px;
-        }
-
-        .buttons-grid-4-4-2 {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 4 Columns standard */
-            gap: 18px;
-        }
-
-        /* Command the last 2 items to center themselves on the 3rd row */
-        .buttons-grid-4-4-2 > button:nth-last-child(2) {
-            grid-column-start: 2;
-        }
-
-        /* Academic Interactive Button */
-        .academic-btn {
-            background-color: var(--bg-card);
-            border: 1px solid #2e3e56;
-            border-radius: 12px;
-            padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            text-align: left;
-        }
-
-        .btn-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
-            background-color: rgba(255,255,255,0.03);
-            color: var(--btn-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            transition: all 0.2s ease;
-            flex-shrink: 0;
-        }
-
-        .btn-text h3 {
-            margin: 0;
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: #ffffff;
-            transition: color 0.2s ease;
-        }
-
-        .btn-text span {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            display: block;
-            margin-top: 2px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* Interactive Hover Animations */
-        .academic-btn:hover {
-            border-color: var(--btn-color);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            background-color: #24334d;
-        }
-
-        .academic-btn:hover .btn-icon {
-            background-color: var(--btn-color);
-            color: #ffffff;
-        }
-
-        .academic-btn:hover .btn-text h3 {
-            color: var(--btn-color);
-        }
-
-        /* Footer styling */
-        .footer {
-            text-align: center;
-            padding: 30px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 50px;
-            border-top: 1px solid #1e293b;
-        }
-
-        /* Responsive Layout for Tablets/Mobiles */
-        @media (max-width: 1024px) {
-            .buttons-grid-4-4-2 { grid-template-columns: repeat(2, 1fr); }
-            .buttons-grid-4-4-2 > button:nth-last-child(2) { grid-column-start: auto; }
-            .bio-header-block { flex-direction: column; align-items: center; text-align: center; }
-            .profile-frame-left { margin-top: -60px; }
-            .bio-text-right .expert-tags { text-align: center; }
-        }
-        @media (max-width: 640px) {
-            .buttons-grid-4-4-2 { grid-template-columns: 1fr; }
-            .bio-text-right h1 { font-size: 2rem; }
-        }
+        /* Grid - Tight 4-4-2 */
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; height: 50%; padding-top: 5px; }
+        .btn { background: #1e293b; color: white; border: none; border-radius: 5px; display: flex; align-items: center; gap: 8px; padding: 5px; cursor: pointer; font-size: 0.8rem; }
+        .btn:hover { background: #334155; }
+        .btn i { font-size: 1rem; color: #3b82f6; }
     </style>
 </head>
 <body>
-
-<!-- 1. The Shorter Cinematic Background Banner -->
-<header class="panoramic-banner"></header>
-
-<!-- Main Page Wrapper -->
-<div class="page-container">
-
-    <!-- 2. Profile Details & Credentials Block (Perfectly Visible & Clear) -->
-    <section class="bio-header-block">
-        
-        <!-- Profile Picture on the Left (Nudged Up) -->
-        <div class="profile-frame-left">
-            <img src="3. 5 xx  4.JPG" alt="Dr. Islam G. Alhindawy">
-        </div>
-
-        <!-- Credentials on the Right -->
-        <div class="bio-text-right">
-            <h1>Dr. Islam G. Alhindawy</h1>
-            <div class="academic-degree">Ph.D. in Materials Chemistry</div>
-            <div class="expert-tags">
-                Materials Scientist & Chemist | Nanotechnology & Renewable Energy Expert | Mining & Mineral Processing Projects Leader | Water Treatment & Environmental Remediation | Academic–Industry Collaborator | Principal & Research Scientist | Operations Manager | Industrial Chemist | Lecturer
+    <div class="page-wrapper">
+        <div class="banner"></div>
+        <div class="header-section">
+            <img src="3. 5 xx  4.JPG" class="profile-img">
+            <div class="bio-text">
+                <h1>Dr. Islam G. Alhindawy</h1>
+                <p>Ph.D. in Materials Chemistry</p>
+                <p style="font-size: 0.75rem;">Materials Scientist | Nanotech & Renewable Energy | Mining & Mineral Processing Projects Leader | Water Treatment & Environmental Remediation | Academic–Industry Collaborator | Principal & Research Scientist | Operations Manager | Industrial Chemist | Lecturer</p>
             </div>
         </div>
-
-    </section>
-
-    <!-- 3. Navigation Grid Optimized as 4-4-2 to fit one screen -->
-    <main class="navigation-section">
-        <div class="section-headline">Navigation Menu & Sections</div>
-        
-        <div class="buttons-grid-4-4-2">
-            
-            <!-- Row 1 -->
-            <button class="academic-btn" style="--btn-color: var(--btn-summary);" onclick="alert('Summary section triggered')">
-                <div class="btn-icon"><i class="fa-solid fa-address-card"></i></div>
-                <div class="btn-text">
-                    <h3>Professional Summary</h3>
-                    <span>Vision & overview</span>
-                </div>
-            </button>
-
-            <button class="academic-btn" style="--btn-color: var(--btn-experience);" onclick="alert('Experience section triggered')">
-                <div class="btn-icon"><i class="fa-solid fa-briefcase"></i></div>
-                <div class="btn-text">
-                    <h3>Professional Experience</h3>
-                    <span>Chronology & leadership</span>
-                </div>
-            </button>
-
-            <button class="academic-btn" style="--btn-color: var(--btn-education);" onclick="alert('Education section triggered')">
-                <div class="btn-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                <div class="btn-text">
-                    <h3>Education & Fellowships</h3>
-                    <span>Degrees & training</span>
-                </div>
-            </button>
-
-            <button class="academic-btn" style="--btn-color: var(--btn-skills);" onclick="alert('Skills section triggered')">
-                <div class="btn-icon"><i class="fa-solid fa-flask-vial"></i></div>
-                <div class="btn-text">
-                    <h3>Technical & Lab Skills</h3>
-                    <span>Scientific expertise</span>
-                </div>
-            </button>
-
-            <!-- Row 2 -->
-            <button class="academic-btn" style="--btn-color: var(--btn-patents);" onclick="alert('Patents section triggered')">
-                <div class="btn-icon"><i class="fa-solid fa-certificate"></i></div>
-                <div class="btn-text">
-                    <h3>Patents</h3>
-                    <span>Intellectual properties</span>
-                </div>
-            </button>
-
-            <button class="academic-btn" style="--btn-color: var(--btn-research);" onclick="alert('Publications section triggered')">
-                <div class="btn-icon"><i class="fa-solid fa-newspaper"></i></div>
-                <div class="btn-text">
-                    <h3>Research Publications</h3>
-                    <span>International journals</span>
-                </div>
-            </button>
-
-            <button class="academic-btn" style="--btn-color: var(--btn-books);" onclick="alert('Books section triggered')">
-                <div class="btn-icon"><i class="fa-solid fa-book-open"></i></div>
-                <div class="btn-text">
-                    <h3>International Books</h3>
-                    <span>Published textbooks</span>
-                </div>
-            </button>
-
-            <button class="academic-btn" style="--btn-color: var(--btn-gallery);" onclick="alert('Gallery section triggered')">
-                <div class="btn-icon"><i class="fa-solid fa-images"></i></div>
-                <div class="btn-text">
-                    <h3>Field & Lab Gallery</h3>
-                    <span>Visuals & desert sites</span>
-                </div>
-            </button>
-
-            <!-- Row 3 (Centered Automatically) -->
-            <button class="academic-btn" style="--btn-color: var(--btn-profiles);" onclick="alert('Academic profiles triggered')">
-                <div class="btn-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                <div class="btn-text">
-                    <h3>Research Profiles</h3>
-                    <span>Scholar, ResearchGate</span>
-                </div>
-            </button>
-
-            <button class="academic-btn" style="--btn-color: var(--btn-contact);" onclick="alert('Contact section triggered')">
-                <div class="btn-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
-                <div class="btn-text">
-                    <h3>Direct Contact Info</h3>
-                    <span>Email & communication</span>
-                </div>
-            </button>
-
+        <div class="grid">
+            <button class="btn"><i class="fa-solid fa-address-card"></i> Summary</button>
+            <button class="btn"><i class="fa-solid fa-briefcase"></i> Experience</button>
+            <button class="btn"><i class="fa-solid fa-graduation-cap"></i> Education</button>
+            <button class="btn"><i class="fa-solid fa-flask-vial"></i> Skills</button>
+            <button class="btn"><i class="fa-solid fa-certificate"></i> Patents</button>
+            <button class="btn"><i class="fa-solid fa-newspaper"></i> Publications</button>
+            <button class="btn"><i class="fa-solid fa-book-open"></i> Books</button>
+            <button class="btn"><i class="fa-solid fa-images"></i> Gallery</button>
+            <button class="btn" style="grid-column: span 2;"><i class="fa-solid fa-user-graduate"></i> Profiles</button>
+            <button class="btn" style="grid-column: span 2;"><i class="fa-solid fa-envelope"></i> Contact</button>
         </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        &copy; 2026 Dr. Islam G. Alhindawy. All Rights Reserved. Managed under formal academic and scientific standards.
-    </footer>
-
-</div>
-
+    </div>
 </body>
 </html>
