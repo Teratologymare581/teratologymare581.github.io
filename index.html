@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg-main: #f8fafc;
-            --text-dark: #0f172a;
-            --text-muted: #64748b;
+            --bg-main: #0f172a; /* Deep blue background for the entire page */
+            --text-dark: #f8fafc; /* Light text for deep background */
+            --text-muted: #cbd5e1;
             
             /* Dynamic Button Colors */
             --btn-summary: #2563eb;
@@ -34,123 +34,174 @@
             line-height: 1.6;
         }
 
-        /* Cinema-style Hero Banner fusing Nanotechnology (Blues/Teals) & Desert Fieldwork (Warm Amber/Gold) */
-        .hero-container {
-            position: relative;
-            background: linear-gradient(135deg, #0f172a 15%, #1e293b 50%, #2e1a05 100%);
-            color: #ffffff;
-            padding: 70px 20px;
+        /* ----------------------------------------------------------- */
+        /* --- Super-Wide Banner Background (Fully Cleared) --- */
+        /* ----------------------------------------------------------- */
+        .hero-banner-outer {
+            width: 100%;
+            height: auto; /* Allow height to adjust */
+            padding: 0;
+            margin: 0;
+            background: linear-gradient(135deg, #0a0e16, #162a3f); /* Fallback */
             border-bottom: 5px solid #2563eb;
             overflow: hidden;
+            position: relative;
         }
 
-        /* Abstract glowing auroras representing molecular structures and chemical reactions in the field */
-        .hero-container::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -20%;
-            width: 80%; height: 200%;
-            background: radial-gradient(circle, rgba(13, 148, 136, 0.25) 0%, rgba(0,0,0,0) 70%);
-            transform: rotate(-15deg);
-            pointer-events: none;
-        }
-        
-        .hero-container::after {
-            content: '';
-            position: absolute;
-            bottom: -50%; right: -10%;
-            width: 70%; height: 180%;
-            background: radial-gradient(circle, rgba(219, 110, 6, 0.2) 0%, rgba(0,0,0,0) 70%);
-            pointer-events: none;
+        /* The actual panoramic image background, strictly controlled */
+        .hero-banner-inner {
+            background-image: url('banner.jpg'); /* Your spectacular image! */
+            background-size: cover; /* Image covers entire area without distorting */
+            background-position: center top; /* Focuses on top-center of the panorama */
+            background-repeat: no-repeat;
+            width: 100%;
+            min-height: 400px; /* Minimum height for good visibility */
+            position: relative;
+            z-index: 1; /* Lowest z-index for background */
+            display: flex; /* Helps vertically center content, but we mostly clear it */
+            align-items: center; 
         }
 
+        /* Essential overlay to ensure text is always readable over ANY image */
+        .hero-banner-inner::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.3); /* Subtle dark overlay for contrast */
+            pointer-events: none;
+            z-index: 2; /* Layer above image */
+        }
+
+        /* Center content block on the banner, mainly for vertical spacing */
         .hero-content {
             max-width: 1200px;
             margin: 0 auto;
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            flex-wrap: wrap;
             position: relative;
-            z-index: 2;
+            z-index: 3; /* Content z-index, must be above image/overlay */
+            color: #ffffff;
+            padding: 70px 20px;
         }
 
-        /* Profile Image Frame - Strictly Forced to the Left Side */
-        .profile-frame {
-            flex: 0 0 240px;
-            height: 320px;
+        /* Header Text within the Banner (Simplified to clear space) */
+        .hero-text h1 {
+            font-size: 3.2rem;
+            margin: 0 0 10px 0;
+            font-weight: 800;
+            letter-spacing: -1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Stronger shadow for readability */
+            background: linear-gradient(to right, #ffffff, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Subtitle / Department within the Banner */
+        .hero-text .degree {
+            font-size: 1.8rem;
+            color: #3b82f6;
+            font-weight: 600;
+            margin-bottom: 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* ----------------------------------------------------------- */
+        /* --- Integrated Side-Panel (Profile + Info + Grid) --- */
+        /* ----------------------------------------------------------- */
+        
+        .main-container-integrated {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            display: grid;
+            grid-template-columns: 280px 1fr; /* Fixed side panel width, remaining for content */
+            gap: 40px;
+            align-items: start; /* Side panel stays at the top */
+        }
+
+        /* Side Panel Styling */
+        .info-side-panel {
+            background-color: #1e293b;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            border: 1px solid #334155;
+            position: sticky; /* Side panel will stick as user scrolls */
+            top: 20px; /* Sticking point */
+        }
+
+        /* Profile image - No longer in the banner! */
+        .side-profile-frame {
+            width: 100%;
+            height: 280px; /* Adjusted to panel width, maintaining ratio */
             border-radius: 16px;
             overflow: hidden;
             border: 4px solid #ffffff;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             background: #334155;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-bottom: 25px;
         }
 
-        .profile-frame img {
+        .side-profile-frame img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        /* Academic Credentials Block - Strictly Forced to the Right Side */
-        .hero-text {
-            flex: 1;
-            min-width: 300px;
+        /* Dr. Islam's full list of titles and qualifications, presented cleanly */
+        .side-tags-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-align: left;
         }
 
-        .hero-text h1 {
-            font-size: 2.8rem;
-            margin: 0 0 5px 0;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            background: linear-gradient(to right, #ffffff, #93c5fd, #fde047);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .side-tags-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 12px;
+            line-height: 1.4;
         }
 
-        .hero-text .degree {
-            font-size: 1.5rem;
+        .side-tags-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
             color: #3b82f6;
-            font-weight: 600;
-            margin-bottom: 15px;
+            font-weight: bold;
         }
 
-        .hero-text .tags {
-            font-size: 1.05rem;
-            color: #cbd5e1;
-            margin-bottom: 0;
-            text-align: justify;
-        }
-
-        /* Main Container */
-        .main-container {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 0 20px;
+        /* Grid section containing the actual navigation buttons */
+        .grid-section {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
         }
 
         .section-headline {
             font-size: 1.8rem;
             font-weight: 700;
-            margin-bottom: 35px;
             color: var(--text-dark);
-            border-left: 5px solid #0f172a;
+            border-left: 5px solid #2563eb;
             padding-left: 15px;
+            margin-bottom: 10px;
         }
 
-        /* Dashboard Buttons Grid */
         .buttons-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
         }
 
-        /* Interactive Academic Button Style */
+        /* ----------------------------------------------------------- */
+        /* --- Academic Button & Footer Styles --- */
+        /* ----------------------------------------------------------- */
+
         .academic-btn {
-            background: #ffffff;
+            background-color: #ffffff; /* Contrast against the page background */
             border: 2px solid #e2e8f0;
             border-radius: 12px;
             padding: 20px;
@@ -161,197 +212,194 @@
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: left;
             position: relative;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-
-        .btn-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            background-color: #f1f5f9;
-            color: var(--btn-color);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            transition: all 0.25s ease;
-        }
-
-        .btn-text h3 {
-            margin: 0;
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            transition: color 0.25s ease;
-        }
-
-        .btn-text span {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            display: block;
-            margin-top: 2px;
-        }
-
-        /* Button Hover Interactive States */
-        .academic-btn:hover {
-            border-color: var(--btn-color);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.08);
-            background: #ffffff;
-        }
-
-        .academic-btn:hover .btn-icon {
-            background-color: var(--btn-color);
-            color: #ffffff;
-        }
-
-        .academic-btn:hover .btn-text h3 {
-            color: var(--btn-color);
-        }
-
-        /* Active click feel */
-        .academic-btn:active {
-            transform: translateY(-1px);
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
-        /* Footer styling */
+        .btn-icon {
+            width: 50px; height: 50px;
+            border-radius: 10px;
+            background-color: #f1f5f9;
+            color: var(--btn-color);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; transition: all 0.25s ease;
+        }
+
+        .btn-text h3 { margin: 0; font-size: 1.2rem; font-weight: 700; color: #0f172a; transition: color 0.25s ease; }
+        .btn-text span { font-size: 0.85rem; color: #64748b; display: block; margin-top: 2px; }
+
+        .academic-btn:hover {
+            border-color: var(--btn-color);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1);
+        }
+        .academic-btn:hover .btn-icon { background-color: var(--btn-color); color: #ffffff; }
+        .academic-btn:hover .btn-text h3 { color: var(--btn-color); }
+
         .footer {
             text-align: center;
             padding: 40px;
-            color: #64748b;
+            color: var(--text-muted);
             font-size: 0.95rem;
-            margin-top: 80px;
-            border-top: 1px solid #e2e8f0;
-            background: #ffffff;
+            margin-top: 60px;
+            border-top: 1px solid #1e293b;
+            background-color: #0f172a;
         }
 
-        @media (max-width: 768px) {
-            .hero-content { flex-direction: column; text-align: center; }
-            .profile-frame { width: 200px; height: 266px; }
+        /* ----------------------------------------------------------- */
+        /* --- Responsive Adjustments --- */
+        /* ----------------------------------------------------------- */
+
+        @media (max-width: 992px) {
+            .main-container-integrated {
+                grid-template-columns: 1fr; /* Stack panel and grid on small screens */
+                gap: 50px;
+            }
+            .info-side-panel {
+                position: static; /* Side panel no longer sticks on mobile */
+                width: auto;
+            }
+            .hero-text h1 { font-size: 2.8rem; }
         }
     </style>
 </head>
 <body>
 
-<!-- Header Section with Engineered Deep Science & Field Exploration Aesthetic -->
-<header class="hero-container">
-    <div class="hero-content">
-        
-        <!-- Profile Photo Block (Forced Left in Layout) -->
-        <div class="profile-frame">
-            <img src="3. 5 xx  4.JPG" alt="Dr. Islam G. Alhindawy">
-        </div>
-
-        <!-- Academic Credentials Block (Forced Right in Layout) -->
-        <div class="hero-text">
-            <h1>Dr. Islam G. Alhindawy</h1>
-            <div class="degree">Ph.D. in Materials Chemistry</div>
-            <div class="tags">
-                Materials Scientist & Chemist | Nanotechnology & Renewable Energy Expert | Mining & Mineral Processing Projects Leader | Water Treatment & Environmental Remediation | Academic–Industry Collaborator | Principal & Research Scientist | Operations Manager | Industrial Chemist | Lecturer
+<!-- 1. The Panoramic Banner Section (fully cleared for the Spectacular Image) -->
+<header class="hero-banner-outer">
+    <div class="hero-banner-inner">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Dr. Islam G. Alhindawy</h1>
+                <div class="degree">Ph.D. in Materials Chemistry</div>
             </div>
         </div>
-        
     </div>
 </header>
 
-<!-- Main Dashboard Navigation Grid -->
-<main class="main-container">
-    <div class="section-headline">Navigation Menu & Sections</div>
+<!-- 2. Integrated Content Container (Side Panel + Navigation Grid) -->
+<main class="main-container-integrated">
     
-    <div class="buttons-grid">
+    <!-- A. Professional Side Panel - Replaces Banner Info -->
+    <aside class="info-side-panel">
         
-        <!-- 1. Professional Summary Button -->
-        <button class="academic-btn" style="--btn-color: var(--btn-summary);" onclick="alert('Summary section triggered')">
-            <div class="btn-icon"><i class="fa-solid fa-address-card"></i></div>
-            <div class="btn-text">
-                <h3>Professional Summary</h3>
-                <span>Vision, mission & overview</span>
-            </div>
-        </button>
+        <!-- Profile image moves here for clarity and visibility -->
+        <div class="side-profile-frame">
+            <img src="3. 5 xx  4.JPG" alt="Dr. Islam G. Alhindawy">
+        </div>
+        
+        <!-- Dr. Islam's full list of titles and qualifications -->
+        <ul class="side-tags-list">
+            <li>Materials Scientist & Chemist</li>
+            <li>Nanotechnology & Renewable Energy Expert</li>
+            <li>Mining & Mineral Processing Projects Leader</li>
+            <li>Water Treatment & Environmental Remediation</li>
+            <li>Academic–Industry Collaborator</li>
+            <li>Principal & Research Scientist</li>
+            <li>Operations Manager</li>
+            <li>Industrial Chemist</li>
+            <li>Lecturer</li>
+        }
+        </ul>
+    </aside>
 
-        <!-- 2. Professional Experience Button -->
-        <button class="academic-btn" style="--btn-color: var(--btn-experience);" onclick="alert('Experience section triggered')">
-            <div class="btn-icon"><i class="fa-solid fa-briefcase"></i></div>
-            <div class="btn-text">
-                <h3>Professional Experience</h3>
-                <span>Chronology & projects leader</span>
-            </div>
-        </button>
+    <!-- B. Main Grid Section for Navigation -->
+    <section class="grid-section">
+        <div class="section-headline">Navigation Menu & Sections</div>
+        
+        <div class="buttons-grid">
+            
+            <!-- 1. Professional Summary -->
+            <button class="academic-btn" style="--btn-color: var(--btn-summary);" onclick="alert('Summary section triggered')">
+                <div class="btn-icon"><i class="fa-solid fa-address-card"></i></div>
+                <div class="btn-text">
+                    <h3>Professional Summary</h3>
+                    <span>Vision, mission & overview</span>
+                </div>
+            </button>
 
-        <!-- 3. Education & Fellowships Button -->
-        <button class="academic-btn" style="--btn-color: var(--btn-education);" onclick="alert('Education section triggered')">
-            <div class="btn-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-            <div class="btn-text">
-                <h3>Education & Fellowships</h3>
-                <span>Academic degrees & training</span>
-            </div>
-        </button>
+            <!-- 2. Professional Experience -->
+            <button class="academic-btn" style="--btn-color: var(--btn-experience);" onclick="alert('Experience section triggered')">
+                <div class="btn-icon"><i class="fa-solid fa-briefcase"></i></div>
+                <div class="btn-text">
+                    <h3>Professional Experience</h3>
+                    <span>Chronology & projects leader</span>
+                </div>
+            </button>
 
-        <!-- 4. Technical Skills Button -->
-        <button class="academic-btn" style="--btn-color: var(--btn-skills);" onclick="alert('Skills section triggered')">
-            <div class="btn-icon"><i class="fa-solid fa-flask-vial"></i></div>
-            <div class="btn-text">
-                <h3>Technical & Lab Skills</h3>
-                <span>Core scientific expertise</span>
-            </div>
-        </button>
+            <!-- 3. Education & Fellowships -->
+            <button class="academic-btn" style="--btn-color: var(--btn-education);" onclick="alert('Education section triggered')">
+                <div class="btn-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div class="btn-text">
+                    <h3>Education & Fellowships</h3>
+                    <span>Academic degrees & training</span>
+                </div>
+            </button>
 
-        <!-- 5. Patents Button -->
-        <button class="academic-btn" style="--btn-color: var(--btn-patents);" onclick="alert('Patents section triggered')">
-            <div class="btn-icon"><i class="fa-solid fa-certificate"></i></div>
-            <div class="btn-text">
-                <h3>Patents</h3>
-                <span>Intellectual properties</span>
-            </div>
-        </button>
+            <!-- 4. Technical Skills -->
+            <button class="academic-btn" style="--btn-color: var(--btn-skills);" onclick="alert('Skills section triggered')">
+                <div class="btn-icon"><i class="fa-solid fa-flask-vial"></i></div>
+                <div class="btn-text">
+                    <h3>Technical & Lab Skills</h3>
+                    <span>Core scientific expertise</span>
+                </div>
+            </button>
 
-        <!-- 6. Peer-Reviewed Publications Button -->
-        <button class="academic-btn" style="--btn-color: var(--btn-research);" onclick="alert('Publications section triggered')">
-            <div class="btn-icon"><i class="fa-solid fa-newspaper"></i></div>
-            <div class="btn-text">
-                <h3>Research Publications</h3>
-                <span>International journal papers</span>
-            </div>
-        </button>
+            <!-- 5. Patents -->
+            <button class="academic-btn" style="--btn-color: var(--btn-patents);" onclick="alert('Patents section triggered')">
+                <div class="btn-icon"><i class="fa-solid fa-certificate"></i></div>
+                <div class="btn-text">
+                    <h3>Patents</h3>
+                    <span>Intellectual properties</span>
+                </div>
+            </button>
 
-        <!-- 7. International Books Button -->
-        <button class="academic-btn" style="--btn-color: var(--btn-books);" onclick="alert('Books section triggered')">
-            <div class="btn-icon"><i class="fa-solid fa-book-open"></i></div>
-            <div class="btn-text">
-                <h3>International Books</h3>
-                <span>Published textbooks & curricula</span>
-            </div>
-        </button>
+            <!-- 6. Research Publications -->
+            <button class="academic-btn" style="--btn-color: var(--btn-research);" onclick="alert('Publications section triggered')">
+                <div class="btn-icon"><i class="fa-solid fa-newspaper"></i></div>
+                <div class="btn-text">
+                    <h3>Research Publications</h3>
+                    <span>International journal papers</span>
+                </div>
+            </button>
 
-        <!-- 8. Media & Field Gallery Button -->
-        <button class="academic-btn" style="--btn-color: var(--btn-gallery);" onclick="alert('Gallery section triggered')">
-            <div class="btn-icon"><i class="fa-solid fa-images"></i></div>
-            <div class="btn-text">
-                <h3>Field & Lab Gallery</h3>
-                <span>Visuals from desert sites & labs</span>
-            </div>
-        </button>
+            <!-- 7. International Books -->
+            <button class="academic-btn" style="--btn-color: var(--btn-books);" onclick="alert('Books section triggered')">
+                <div class="btn-icon"><i class="fa-solid fa-book-open"></i></div>
+                <div class="btn-text">
+                    <h3>International Books</h3>
+                    <span>Published textbooks & curricula</span>
+                </div>
+            </button>
 
-        <!-- 9. Academic Profiles Button -->
-        <button class="academic-btn" style="--btn-color: var(--btn-profiles);" onclick="alert('Academic profiles triggered')">
-            <div class="btn-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-            <div class="btn-text">
-                <h3>Academic & Research Profiles</h3>
-                <span>LinkedIn, Scholar, ResearchGate</span>
-            </div>
-        </button>
+            <!-- 8. Gallery -->
+            <button class="academic-btn" style="--btn-color: var(--btn-gallery);" onclick="alert('Gallery section triggered')">
+                <div class="btn-icon"><i class="fa-solid fa-images"></i></div>
+                <div class="btn-text">
+                    <h3>Field & Lab Gallery</h3>
+                    <span>Visuals from desert sites & labs</span>
+                </div>
+            </button>
 
-        <!-- 10. Direct Contact Button -->
-        <button class="academic-btn" style="--btn-color: var(--btn-contact);" onclick="alert('Contact section triggered')">
-            <div class="btn-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
-            <div class="btn-text">
-                <h3>Direct Contact Info</h3>
-                <span>Email, phone & communication</span>
-            </div>
-        </button>
+            <!-- 9. Academic Profiles -->
+            <button class="academic-btn" style="--btn-color: var(--btn-profiles);" onclick="alert('Academic profiles triggered')">
+                <div class="btn-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div class="btn-text">
+                    <h3>Academic & Research Profiles</h3>
+                    <span>LinkedIn, Scholar, ResearchGate</span>
+                </div>
+            </button>
 
-    </div>
+            <!-- 10. Contact Info -->
+            <button class="academic-btn" style="--btn-color: var(--btn-contact);" onclick="alert('Contact section triggered')">
+                <div class="btn-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+                <div class="btn-text">
+                    <h3>Direct Contact Info</h3>
+                    <span>Email, phone & communication</span>
+                </div>
+            </button>
+
+        </div>
+    </section>
 </main>
 
 <!-- Footer Section -->
